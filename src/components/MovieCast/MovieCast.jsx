@@ -14,7 +14,7 @@ export default function MovieCast() {
           `https://api.themoviedb.org/3/movie/${movieId}/credits`
         );
         console.log(res);
-        setCast(res);
+        setCast(res.data.cast);
       } catch (error) {
         console.error(error);
       } finally {
