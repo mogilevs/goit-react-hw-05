@@ -1,9 +1,9 @@
+import { imageUrl } from "../../themoviedb-api";
 import css from "./MovieDetailsContent.module.css";
 
 export default function MovieDetailsPage({ details }) {
   const { title, release_date, genres, backdrop_path, vote_average, overview } =
     details;
-  const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function MovieDetailsPage({ details }) {
         ></img>
         <div className={css.contentWrapper}>
           <h3>
-            {title} ({release_date})
+            {title} ({release_date.slice(0, 4)})
           </h3>
           <p>User score: {Math.round(vote_average * 10)}%</p>
           <h4>Overview</h4>

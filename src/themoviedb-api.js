@@ -12,3 +12,4 @@ export async function fetchRequest(url) {
 
   return response;
 }
+export const imageUrl = "https://image.tmdb.org/t/p/w500";

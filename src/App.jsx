@@ -9,12 +9,12 @@ import MovieDetailsPage from "./pages/MovieDetailsPage";
 import MovieCast from "./components/MovieCast/MovieCast";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import NotFoundPage from "./pages/NotFoundPage";
-import { fetchRequest } from "./themoviedb-api";
 
 function App() {
   const buildLinkClass = ({ isActive }) => {
     return clsx("link", isActive && "active");
   };
+
   const url =
     "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1";
 
