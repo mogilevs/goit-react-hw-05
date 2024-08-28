@@ -6,11 +6,10 @@ import { useSearchParams } from "react-router-dom";
 
 export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.q || null);
+  const [query, setQuery] = useState(searchParams.get("q") || null);
 
   const handleSubmit = (value, actions) => {
     if (value === "") return;
-    console.log(value.search);
     setQuery(value.search);
     const q = searchParams.get("q");
     setSearchParams({ q: value.search });
