@@ -1,7 +1,6 @@
 import { imageUrl } from "../../themoviedb-api";
 
 export default function MovieCastList({ cast }) {
-  console.log(cast);
   return (
     <ul>
       {cast.map(({ id, name, profile_path, character }) => {

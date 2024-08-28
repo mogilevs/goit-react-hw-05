@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import clsx from "clsx";
 import "./App.css";
@@ -14,9 +13,6 @@ function App() {
   const buildLinkClass = ({ isActive }) => {
     return clsx("link", isActive && "active");
   };
-
-  const url =
-    "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1";
 
   return (
     <>

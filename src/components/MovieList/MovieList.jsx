@@ -1,13 +1,34 @@
-export default function MovieList({ list }) {
+import { useEffect, useState } from "react";
+import { fetchRequest } from "../../themoviedb-api";
+import BuiltList from "../BuiltList/BuiltList";
+
+export default function MovieList({ url }) {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function moviesRequest() {
+      try {
+        setLoading(true);
+        setError(false);
+        const res = await fetchRequest(url);
+        setMovies(res.data.results);
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    moviesRequest();
+  }, [url]);
+
   return (
-    <ul>
-      {list.map(({ id, title }) => {
-        return (
-          <li key={id}>
-            <a href={`/movies/${id}`}>{title}</a>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {error && <p>Something went wrong! Please try again later.</p>}
+      {loading && <p>Loading...</p>}
+      <BuiltList list={movies} />
+    </>
   );
 }
