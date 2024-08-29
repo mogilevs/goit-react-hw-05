@@ -21,8 +21,10 @@ export default function MoviesPage() {
   };
 
   useEffect(() => {
+    if (!query) return;
     async function moviesRequest() {
       try {
+        setMovies([]);
         setLoading(true);
         setError(false);
         const res = await fetchRequest(
@@ -51,7 +53,8 @@ export default function MoviesPage() {
       </Formik>
       {error && <p>Something went wrong! Please try again later.</p>}
       {loading && <p>Loading...</p>}
-      {query && <MovieList list={movies} />}
+      {movies && <MovieList list={movies} />}
+      {query && !loading && movies.length === 0 && <p>Nothing found.</p>}
     </>
   );
 }
