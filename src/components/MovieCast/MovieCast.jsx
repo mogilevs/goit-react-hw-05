@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchRequest } from "../../themoviedb-api";
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MovieCastList from "../MovieCastList/MovieCastList";
 
 export default function MovieCast() {
   const [cast, setCast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const movieId = useOutletContext();
+  const { movieId } = useParams();
 
   useEffect(() => {
     async function getCredits() {

@@ -1,12 +1,16 @@
 import { Formik, Form, Field } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MovieList from "../components/MovieList/MovieList";
 import css from "./MoviesPage.module.css";
 import { useSearchParams } from "react-router-dom";
+import { fetchRequest } from "../themoviedb-api";
 
 export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || null);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = (value, actions) => {
     if (value === "") return;
@@ -15,6 +19,25 @@ export default function MoviesPage() {
     setSearchParams({ q: value.search });
     actions.resetForm();
   };
+
+  useEffect(() => {
+    async function moviesRequest() {
+      try {
+        setLoading(true);
+        setError(false);
+        const res = await fetchRequest(
+          `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${query}`
+        );
+        setMovies(res.data.results);
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    moviesRequest();
+  }, [query]);
 
   return (
     <>
@@ -26,11 +49,9 @@ export default function MoviesPage() {
           </button>
         </Form>
       </Formik>
-      {query && (
-        <MovieList
-          url={`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${query}`}
-        />
-      )}
+      {error && <p>Something went wrong! Please try again later.</p>}
+      {loading && <p>Loading...</p>}
+      {query && <MovieList list={movies} />}
     </>
   );
 }

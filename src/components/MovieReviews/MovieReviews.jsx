@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchRequest } from "../../themoviedb-api";
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MovieReviewList from "../MovieReviewList/MovieReviewList";
 
 export default function MovieReviews() {
   const [reviews, setReviews] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const movieId = useOutletContext();
+  const { movieId } = useParams();
 
   useEffect(() => {
     async function getReviews() {
