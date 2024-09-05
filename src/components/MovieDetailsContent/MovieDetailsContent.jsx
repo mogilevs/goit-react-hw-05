@@ -1,7 +1,7 @@
 import { imageUrl } from "../../themoviedb-api";
 import css from "./MovieDetailsContent.module.css";
 
-export default function MovieDetailsPage({ details }) {
+export default function MovieDetailsContent({ details }) {
   const { title, release_date, genres, backdrop_path, vote_average, overview } =
     details;
 
